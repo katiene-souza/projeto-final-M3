@@ -2,13 +2,20 @@
 import express from "express";
 import { connectionToDatabase } from "./database/config";
 import { config } from "dotenv";
+import { router } from "./routes/routes";
+import path from "path";
 config();
 
 connectionToDatabase();
 
 const app = express();
 
+app.use(express.static(path.resolve(__dirname, "..", "uploads")));
+
 app.use(express.json());
+app.use(router);
+
+
 
 const port = 3000;
 app.listen(port, () => {

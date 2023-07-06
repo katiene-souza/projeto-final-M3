@@ -7,7 +7,7 @@ const UserSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        nickName: {
+        nickname: {
             type: String,
             required: true,
             unique: true
@@ -23,7 +23,7 @@ const UserSchema: Schema = new Schema(
         },
         photo: {
             type: Schema.Types.ObjectId,
-            ref: "Photo",
+            ref: "File",
             required: true
         },
     },
