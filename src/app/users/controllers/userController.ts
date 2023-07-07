@@ -20,7 +20,7 @@ export class UserController {
         const payload = { ...user, photo: {
             filename: file?.filename,
             mimetype: file?.mimetype,
-        }
+        },
             
         }
         const newUser = await this.service.createUser(payload);
