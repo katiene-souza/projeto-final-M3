@@ -31,4 +31,35 @@ export class UserController {
 
         return res.status(201).json(newUser);
     };
+
+    async userUpdate(req: Request, res: Response) {
+        const { params: { userId }, body: user } = req;
+
+        try {
+            await makeCreateUserSchema().validate(user);
+
+        } catch (err: any) {
+            return res.status(400).json({
+                errors: err.errors,
+            });
+        };
+
+        const newUserUpdate = await this.service.userUpdate(userId , user) as any;
+        if('error' in newUserUpdate) {
+            return res.status(newUserUpdate.error).json(newUserUpdate) 
+        }
+
+        res.status(201).json(newUserUpdate);
+    };
+
+    async deleteUser(req: Request, res: Response) {
+        const { params: { userId } } = req;
+        
+        const deletedUser = await this.service.deleteUser(userId) as any;
+        if('error' in deletedUser) {
+            return res.status(deletedUser.error).json(deletedUser) 
+        }
+
+        res.status(201).json(deletedUser);
+    };
 };
