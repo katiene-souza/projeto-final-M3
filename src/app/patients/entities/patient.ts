@@ -8,11 +8,11 @@ const PatientSchema: Schema = new Schema(
             ref: "User",
             required: true
         },
-        timelines: {
+        timelines: [{
             type: Schema.Types.ObjectId,
             ref: "Timelines",
-            required: true
-        },
+            default: []
+        }],
         name: {
             type: String,
             required: true
@@ -22,7 +22,7 @@ const PatientSchema: Schema = new Schema(
             required: true,
         },
         birthdate: {
-            type: Date,
+            type: String,
             required: true,
         },
         demands: {

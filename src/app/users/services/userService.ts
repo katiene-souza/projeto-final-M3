@@ -38,14 +38,16 @@ export class UserService {
 
 
   async userUpdate(userId: string, userUpdate: CreateUserDTO) {
-    const newUserUpdate = await this.userRepository.userUpdate(userId, userUpdate);
-    if (!newUserUpdate) {
+
+    if (!userId) {
       return ({
         error: 400,
         message: 'id not found'
       });
     };
 
+    const newUserUpdate = await this.userRepository.userUpdate(userId, userUpdate);
+   
     return {
       message: 'user updated',
       status: 200,
