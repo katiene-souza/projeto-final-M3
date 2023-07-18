@@ -1,4 +1,10 @@
-interface CreateTimelineDTO {
+export interface CreateTimelineDTO {
     name: string;
-    occurrences: string;
+    patientId?: string;
+    timelineId: string
+  };
+
+  export interface CreateTimelineIdDTO {
+    timelineId: string;
+    patientId: string;
   };

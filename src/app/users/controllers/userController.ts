@@ -46,7 +46,7 @@ export class UserController {
 
         const newUserUpdate = await this.service.userUpdate(userId , user) as any;
         if('error' in newUserUpdate) {
-            return res.status(newUserUpdate.error).json(newUserUpdate) 
+            return res.status(newUserUpdate.error).json(newUserUpdate); 
         }
 
         res.status(201).json(newUserUpdate);
@@ -57,8 +57,8 @@ export class UserController {
         
         const deletedUser = await this.service.deleteUser(userId) as any;
         if('error' in deletedUser) {
-            return res.status(deletedUser.error).json(deletedUser) 
-        }
+            return res.status(deletedUser.error).json(deletedUser);
+        };
 
         res.status(201).json(deletedUser);
     };

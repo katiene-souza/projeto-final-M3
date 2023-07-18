@@ -4,6 +4,7 @@ import { upload } from "../config/storageConfig";
 import { AuthModule } from "../app/auth/authModule";
 import { Authenticate } from "../common/middlewares/authenticate";
 import { PatientModule } from "../app/patients/patientModule";
+import { TimelineModule } from "../app/timeline/timelineModule";
 
 export const router = Router();
 
@@ -11,6 +12,7 @@ const authController = AuthModule.build().authControler;
 
 const userController = UserModule.build().userControler;
 const patientController = PatientModule.build().patientControler;
+const timelineController = TimelineModule.build().timelineControler
 
 
 router.post('/users', upload.single('photo'), userController.createUser.bind(userController));
@@ -25,3 +27,7 @@ router.post('/users/:userId/patients', patientController.createPatient.bind(pati
 router.get('/users/:userId/patients', patientController.findAllPatientByUser.bind(patientController));
 router.get('/users/:userId/patients/:patientId', patientController.findPatientById.bind(patientController));
 router.patch('/users/:userId/patients/:patientId', patientController.patientUpadate.bind(patientController));
+
+router.post('/patients/:patientId/timelines', timelineController.createTimeline.bind(timelineController));
+router.get('/patients/:patientId/timelines/:timelineId', timelineController.findTimelineById.bind(timelineController));
+router.patch('/patients/:patientId/timelines/:timelineId', timelineController.timelineUpadate.bind(timelineController))

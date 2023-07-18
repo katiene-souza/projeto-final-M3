@@ -10,7 +10,7 @@ const PatientSchema: Schema = new Schema(
         },
         timelines: [{
             type: Schema.Types.ObjectId,
-            ref: "Timelines",
+            ref: "Timeline",
             default: []
         }],
         name: {

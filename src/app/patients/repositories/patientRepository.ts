@@ -22,4 +22,12 @@ export class PatientRepository {
             patientUpdate,
             { new: true });
     };
+
+    async pushTimeline(patientId: string, timelineId: string) {
+        return this.model.findByIdAndUpdate(patientId, {
+            $push: {
+                timelines: [timelineId],
+            },
+        }, {new: true}).populate("timelines");
+    }; 
 };

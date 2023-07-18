@@ -26,13 +26,4 @@ export class UserRepository {
     async deletedUser(userId: string) {
         return this.model.findByIdAndDelete({_id: userId});
     };
-
-
-/*     async pushPatient(userId: string, patientId: string) {
-        return this.model.findByIdAndUpdate(userId, {
-            $push: {
-                patient: [patientId],
-            },
-        }, {new: true})
-    }; */
 };

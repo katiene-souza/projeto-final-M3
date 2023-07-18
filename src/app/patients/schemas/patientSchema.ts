@@ -10,9 +10,3 @@ export const makeCreatePatientSchema = () => {
     });
 };
 
-export const makeAssociatePatient = () => {
-    return yup.object().shape({
-        userId: yup.string().required(),
-        patientId: yup.string().required(),
-    })
-}

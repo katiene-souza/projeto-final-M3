@@ -79,13 +79,13 @@ export class PatientController {
        const  payload = {
             ...patient, 
             patientId
-        }
+        };
 
         const newPatientUpdate = await this.service.patientUpdate(payload) as any;
         if('error' in newPatientUpdate) {
-            return res.status(newPatientUpdate.error).json(newPatientUpdate) 
-        }
+            return res.status(newPatientUpdate.error).json(newPatientUpdate); 
+        };
 
         res.status(201).json(newPatientUpdate);
-    }
-}
+    };
+};

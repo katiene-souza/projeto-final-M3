@@ -3,15 +3,15 @@ import { PatientRepository } from "../repositories/patientRepository";
 
 export class PatientService {
     constructor(
-        private patientRepository: PatientRepository, 
-    ) {};
+        private patientRepository: PatientRepository,
+    ) { };
 
     async createPatient(patient: CreatePatientDTO) {
         try {
             const newPatient = await this.patientRepository.createPatient(patient);
 
             return newPatient
-        } catch(error) {
+        } catch (error) {
             return { error: true, message: "internal server error", status: 500 };
         };
     };
@@ -19,15 +19,23 @@ export class PatientService {
     async findAllPatientByUser(userId: string) {
         try {
             return this.patientRepository.findAllPatientByUser(userId);
-        } catch(error) {
+        } catch (error) {
             return { error: true, message: "internal server error", status: 500 };
         };
     };
 
     async findPatientById(payload: CreatePatientIdDTO) {
+        if (!payload) {
+            return {
+                error: true,
+                message: "User not found",
+                staus: 404
+            }
+        }
+
         try {
             return this.patientRepository.findPatientById(payload.patientId);
-        } catch(error) {
+        } catch (error) {
             return { error: true, message: "internal server error", status: 500 };
         };
     };
@@ -35,18 +43,18 @@ export class PatientService {
     async patientUpdate(payload: CreatePatientServiceDTO) {
         if (!payload) {
             return ({
-              error: 400,
-              message: 'id not found'
+                error: 400,
+                message: 'id not found'
             });
-          };
-      
-          const newPatientUpdate = await this.patientRepository.patientUpdate(payload.patientId, payload );
-         
-          return {
+        };
+
+        const newPatientUpdate = await this.patientRepository.patientUpdate(payload.patientId, payload);
+
+        return {
             message: 'patient updated',
             status: 200,
             data: newPatientUpdate
-          };
         };
-      
-    }
+    };
+
+}
