@@ -6,54 +6,38 @@ export class TimelineService {
     constructor(
         private timelineRepository: TimelineRepository,
         private patientRepository: PatientRepository
-        ) { };
+    ) { };
 
     async createTimeline(timeline: CreateTimelineDTO) {
-        if(!timeline.patientId) {
-            return ({
-                status: 400,
-                message: "id not defined"
-            });
-        }
-
         try {
             const newTimeline = await this.timelineRepository.createTimeline(timeline);
 
             return this.patientRepository.pushTimeline(timeline.patientId as string, newTimeline.id);
         } catch (error) {
-            return { error: true, message: "internal server error", status: 500 };
+            return ({ error: true, message: "internal server error", status: 500 });
         };
     };
-    
-    async findTimelineById(payload: CreateTimelineIdDTO) {
-        if(!payload.timelineId && payload.patientId) {
-            return ({
-                error: 400,
-                message: "id not defined"
-            });
-        };
 
+    async findTimelineById(payload: CreateTimelineIdDTO) {
         try {
             return this.timelineRepository.findTimelineById(payload.timelineId);
-        } catch(error) {
+        } catch (error) {
             return { error: true, message: "internal server error", status: 500 };
         };
     };
 
     async timelineUpdate(payload: CreateTimelineDTO) {
-        if (!payload.timelineId) {
-            return ({
-                error: 400,
-                message: 'id not found',
-            });
-        };
+        try {
+            const newTimelineUpdate = await this.timelineRepository.timelineUpdate(payload.timelineId, payload);
 
-        const newTimelineUpdate = await this.timelineRepository.timelineUpdate(payload.timelineId, payload);
-
-        return {
-            message: 'patient updated',
-            status: 200,
-            data: newTimelineUpdate,
+            return {
+                message: 'patient updated',
+                status: 200,
+                data: newTimelineUpdate,
+            };
+            
+        } catch (error) {
+            return { error: true, message: "internal server error", status: 500 };
         };
     };
 };

@@ -15,10 +15,9 @@ const OccurrenceSchema: Schema = new Schema(
             type: String,
             required: true,
         },
-        files: {
+        file: {
             type: Schema.Types.ObjectId,
-            ref: "Files",
-            required: true
+            ref: "File"
         },
     },
 {timestamps: true});

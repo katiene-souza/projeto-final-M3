@@ -8,6 +8,12 @@ export class TimelineController {
     async createTimeline(req: Request, res: Response) {
         const {body: timeline, params: { patientId } } = req;
         
+        if (!patientId) {
+            return res.status(400).json({
+                message: "id not defined",
+            });
+        };
+
         try {
             await makeCreateTimelineSchema().validate(timeline);
         } catch(err: any) {
@@ -29,6 +35,12 @@ export class TimelineController {
     async findTimelineById(req: Request, res: Response) {
         const { params: { timelineId, patientId } } = req;
 
+        if (!timelineId && patientId) {
+            return res.status(400).json({
+                message: "id not defined",
+            });
+        };
+
         const  payload = {
             timelineId, 
             patientId
@@ -44,6 +56,12 @@ export class TimelineController {
 
     async timelineUpadate(req: Request, res: Response) {
         const { params: { timelineId }, body: timeline } = req;
+
+        if (!timelineId) {
+            return res.status(400).json({
+                message: "id not defined",
+            });
+        };
 
         try {
             await makeCreateTimelineSchema().validate(timeline);

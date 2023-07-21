@@ -24,7 +24,6 @@ const UserSchema: Schema = new Schema(
         photo: {
             type: Schema.Types.ObjectId,
             ref: "File",
-            required: true
         },
     },
 {timestamps: true});

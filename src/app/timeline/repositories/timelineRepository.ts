@@ -18,4 +18,12 @@ export class TimelineRepository {
             timelineUpdate,
             { new: true });
     };
+
+    async pushOccurence(timelineId: string, occurrenceId: string) {
+        return this.model.findByIdAndUpdate(timelineId, {
+            $push: {
+                occurrences: [occurrenceId],
+            },
+        }, {new: true}).populate("occurrences");
+    }; 
 };

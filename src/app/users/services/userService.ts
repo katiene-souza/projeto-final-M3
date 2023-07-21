@@ -32,41 +32,34 @@ export class UserService {
 
     const newUserResult = await this.userRepository.createUser(newUser);
 
-
     return { ...(newUserResult as any)._doc, photo: photo };
   };
 
 
   async userUpdate(userId: string, userUpdate: CreateUserDTO) {
+    try {
+      const newUserUpdate = await this.userRepository.userUpdate(userId, userUpdate);
 
-    if (!userId) {
-      return ({
-        error: 400,
-        message: 'id not found'
-      });
-    };
-
-    const newUserUpdate = await this.userRepository.userUpdate(userId, userUpdate);
-   
-    return {
-      message: 'user updated',
-      status: 200,
-      data: newUserUpdate
+      return {
+        message: 'user updated',
+        status: 200,
+        data: newUserUpdate
+      };
+    } catch (error) {
+      return ({ error: true, message: "internal server error", status: 500 });
     };
   };
 
   async deleteUser(userId: string) {
-    const deletedUser = await this.userRepository.deletedUser(userId);
-    if (!deletedUser) {
-      return ({
-        error: 400,
-        message: 'id not found',
-      });
-    };
+    try {
+      this.userRepository.deletedUser(userId);
 
-    return {
-      message: 'deleted user',
-      status: 200,
+      return {
+        message: 'deleted user',
+        status: 200,
+      };
+    } catch (error) {
+      return ({ error: true, message: "internal server error", status: 500 });
     };
   };
 };

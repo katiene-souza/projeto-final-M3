@@ -10,7 +10,7 @@ export class PatientService {
         try {
             const newPatient = await this.patientRepository.createPatient(patient);
 
-            return newPatient
+            return newPatient;
         } catch (error) {
             return { error: true, message: "internal server error", status: 500 };
         };
@@ -25,14 +25,6 @@ export class PatientService {
     };
 
     async findPatientById(payload: CreatePatientIdDTO) {
-        if (!payload) {
-            return {
-                error: true,
-                message: "User not found",
-                staus: 404
-            }
-        }
-
         try {
             return this.patientRepository.findPatientById(payload.patientId);
         } catch (error) {
@@ -41,20 +33,16 @@ export class PatientService {
     };
 
     async patientUpdate(payload: CreatePatientServiceDTO) {
-        if (!payload) {
-            return ({
-                error: 400,
-                message: 'id not found'
-            });
-        };
+        try {
+            const newPatientUpdate = await this.patientRepository.patientUpdate(payload.patientId, payload);
 
-        const newPatientUpdate = await this.patientRepository.patientUpdate(payload.patientId, payload);
-
-        return {
-            message: 'patient updated',
-            status: 200,
-            data: newPatientUpdate
+            return {
+                message: 'patient updated',
+                status: 200,
+                data: newPatientUpdate
+            };
+        } catch (error) {
+            return { error: true, message: "internal server error", status: 500 };
         };
     };
-
-}
+};
