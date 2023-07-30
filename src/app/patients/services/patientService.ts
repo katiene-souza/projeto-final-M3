@@ -2,6 +2,7 @@ import { CreatePatientDTO, CreatePatientIdDTO, CreatePatientServiceDTO } from ".
 import { PatientRepository } from "../repositories/patientRepository";
 
 export class PatientService {
+    static patientService: any;
     constructor(
         private patientRepository: PatientRepository,
     ) { };
@@ -10,7 +11,12 @@ export class PatientService {
         try {
             const newPatient = await this.patientRepository.createPatient(patient);
 
-            return newPatient;
+            return ({
+                message: "patient created",
+                statusCode: 201,
+                data: newPatient    
+            });
+            
         } catch (error) {
             return { error: true, message: "internal server error", status: 500 };
         };

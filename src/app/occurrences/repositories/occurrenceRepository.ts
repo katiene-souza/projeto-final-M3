@@ -4,7 +4,7 @@ import { Occurrence } from "../entities/occurrence";
 export class OccurenceRepository {
     constructor(private model: typeof Occurrence ) {};
 
-    async createOccurence(payload: CreateOccurenceDTO) {
+    async createOccurrence(payload: CreateOccurenceDTO) {
         return this.model.create(payload);
     };
 

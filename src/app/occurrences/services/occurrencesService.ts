@@ -10,11 +10,13 @@ export class OccurenceService {
 
     async createOccurrence(payload: CreateOccurenceDTO) {
         try{
-            const newOccurrence = await this.occurenceRepository.createOccurence(payload);
+         const newOccurrence = await this.occurenceRepository.createOccurrence(payload);
 
            return this.timelineRepository.pushOccurence(payload.timelineId as string, newOccurrence.id);
 
+           
         } catch(error) {
+            console.log(error)
             return({ error: true, message: "internal server error", status: 500 });
         };
     };
