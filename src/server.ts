@@ -17,7 +17,7 @@ app.use(router);
 
 
 
-const port = 3000;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log("app running on port: http://localhost:3000");
 });

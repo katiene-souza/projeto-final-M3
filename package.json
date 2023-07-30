@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest ./src/app/occurrences/services",
+    "test": "jest .",
+    "start": "npx tsc && node dist/server.js",
     "dev": "tsnd src/server.ts"
   },
   "keywords": [],
